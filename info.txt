@@ -1,0 +1,19 @@
+INSTRUCTIONS POUR LANCER L'APPLICATION
+
+1) Dans le projet API : Ouvrir le fichier Web.config et modifier dans la balise "connectionStrings" la data source pour qu'elle pointe sur le fichier de base de données (.mdf) présent dans le dossier DataAccessLayer
+
+2) Ouvrir l'explorateur de serveurs puis :
+	- Clic droit sur Connexion de données
+	- Ajouter une connexion
+	- En source de données, sélectionner : Fichier de base de données Microsoft SQL Server (SqlClient)
+	- Dans nom de fichier de base de données, cliquez sur 'Parcourir' et sélectionner le fichier .mdf dans le dossier DataAcessLayer
+	- Dans connexion au serveur, cocher "Utiliser l'authentification Windows"
+	- Cliquer sur OK
+
+3) Dans Visual Studio, cliquez sur le projet API :
+	- En bas à droite, une fenêtre "Propriétés" apparaît avec une ligne "URL" 
+	- Si l'URL affiché est "http://localhost:62313" alors passer à l'étape suivante
+	- Si l'URL affiché n'est pas celle mentionnée si dessus, alors faire un rechercher et remplacer dans tout le projet de mon adresse par l'adresse qui est marquée chez vous
+
+4) Clic droit sur le projet API et "Choisir comme projet de démarrage"
+

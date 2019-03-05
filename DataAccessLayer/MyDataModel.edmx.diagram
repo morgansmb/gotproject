@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1bdd8e587394086aceccccc89420482" Name="Diagram1">
+        <EntityTypeShape EntityType="ThronesTournamentModel.Character" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="ThronesTournamentModel.Fight" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="ThronesTournamentModel.House" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ThronesTournamentModel.Territory" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="ThronesTournamentModel.Territory_Type" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="ThronesTournamentModel.War" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="ThronesTournamentModel.FK__Character__house__07C12930" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToCharacter1" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToCharacter2" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToCharacterWinner" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToTerritory" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToWar" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToHouse1" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToHouse2" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Fight_ToHouseWinner" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Territory_ToHouse" />
+        <AssociationConnector Association="ThronesTournamentModel.FK_Territory_ToTerritory_Type" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

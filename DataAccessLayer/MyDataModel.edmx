@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ThronesTournamentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bravoury" Type="int" Nullable="false" />
+          <Property Name="crazyness" Type="int" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pv" Type="int" Nullable="false" />
+          <Property Name="house_char" Type="int" />
+        </EntityType>
+        <EntityType Name="Fight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="character1" Type="int" Nullable="false" />
+          <Property Name="character2" Type="int" Nullable="false" />
+          <Property Name="winner" Type="int" />
+          <Property Name="teritory_fight" Type="int" Nullable="false" />
+          <Property Name="id_war" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numberOfUnities" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Territory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="owner" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Territory_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="War">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="house1" Type="int" Nullable="false" />
+          <Property Name="house2" Type="int" Nullable="false" />
+          <Property Name="winner" Type="int" />
+        </EntityType>
+        <Association Name="FK__Character__house__07C12930">
+          <End Role="House" Type="Self.House" Multiplicity="0..1" />
+          <End Role="Character" Type="Self.Character" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Character">
+              <PropertyRef Name="house_char" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToCharacter1">
+          <End Role="Character" Type="Self.Character" Multiplicity="1" />
+          <End Role="Fight" Type="Self.Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="character1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToCharacter2">
+          <End Role="Character" Type="Self.Character" Multiplicity="1" />
+          <End Role="Fight" Type="Self.Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="character2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToCharacterWinner">
+          <End Role="Character" Type="Self.Character" Multiplicity="0..1" />
+          <End Role="Fight" Type="Self.Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="winner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToHouse1">
+          <End Role="House" Type="Self.House" Multiplicity="1" />
+          <End Role="War" Type="Self.War" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="War">
+              <PropertyRef Name="house1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToHouse2">
+          <End Role="House" Type="Self.House" Multiplicity="1" />
+          <End Role="War" Type="Self.War" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="War">
+              <PropertyRef Name="house2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToHouseWinner">
+          <End Role="House" Type="Self.House" Multiplicity="0..1" />
+          <End Role="War" Type="Self.War" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="War">
+              <PropertyRef Name="winner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToTerritory">
+          <End Role="Territory" Type="Self.Territory" Multiplicity="1" />
+          <End Role="Fight" Type="Self.Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Territory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="teritory_fight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToWar">
+          <End Role="War" Type="Self.War" Multiplicity="1" />
+          <End Role="Fight" Type="Self.Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="War">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="id_war" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Territory_ToHouse">
+          <End Role="House" Type="Self.House" Multiplicity="1" />
+          <End Role="Territory" Type="Self.Territory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Territory">
+              <PropertyRef Name="owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Territory_ToTerritory_Type">
+          <End Role="Territory_Type" Type="Self.Territory_Type" Multiplicity="1" />
+          <End Role="Territory" Type="Self.Territory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Territory_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Territory">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ThronesTournamentModelStoreContainer">
+          <EntitySet Name="Character" EntityType="Self.Character" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fight" EntityType="Self.Fight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Territory" EntityType="Self.Territory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Territory_Type" EntityType="Self.Territory_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="War" EntityType="Self.War" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Character__house__07C12930" Association="Self.FK__Character__house__07C12930">
+            <End Role="House" EntitySet="House" />
+            <End Role="Character" EntitySet="Character" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToCharacter1" Association="Self.FK_Fight_ToCharacter1">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="Fight" EntitySet="Fight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToCharacter2" Association="Self.FK_Fight_ToCharacter2">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="Fight" EntitySet="Fight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToCharacterWinner" Association="Self.FK_Fight_ToCharacterWinner">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="Fight" EntitySet="Fight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToHouse1" Association="Self.FK_Fight_ToHouse1">
+            <End Role="House" EntitySet="House" />
+            <End Role="War" EntitySet="War" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToHouse2" Association="Self.FK_Fight_ToHouse2">
+            <End Role="House" EntitySet="House" />
+            <End Role="War" EntitySet="War" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToHouseWinner" Association="Self.FK_Fight_ToHouseWinner">
+            <End Role="House" EntitySet="House" />
+            <End Role="War" EntitySet="War" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToTerritory" Association="Self.FK_Fight_ToTerritory">
+            <End Role="Territory" EntitySet="Territory" />
+            <End Role="Fight" EntitySet="Fight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToWar" Association="Self.FK_Fight_ToWar">
+            <End Role="War" EntitySet="War" />
+            <End Role="Fight" EntitySet="Fight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Territory_ToHouse" Association="Self.FK_Territory_ToHouse">
+            <End Role="House" EntitySet="House" />
+            <End Role="Territory" EntitySet="Territory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Territory_ToTerritory_Type" Association="Self.FK_Territory_ToTerritory_Type">
+            <End Role="Territory_Type" EntitySet="Territory_Type" />
+            <End Role="Territory" EntitySet="Territory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ThronesTournamentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ThronesTournamentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Characters" EntityType="ThronesTournamentModel.Character" />
+          <EntitySet Name="Fights" EntityType="ThronesTournamentModel.Fight" />
+          <EntitySet Name="Houses" EntityType="ThronesTournamentModel.House" />
+          <EntitySet Name="Territories" EntityType="ThronesTournamentModel.Territory" />
+          <EntitySet Name="Territory_Type" EntityType="ThronesTournamentModel.Territory_Type" />
+          <EntitySet Name="Wars" EntityType="ThronesTournamentModel.War" />
+          <AssociationSet Name="FK__Character__house__07C12930" Association="ThronesTournamentModel.FK__Character__house__07C12930">
+            <End Role="House" EntitySet="Houses" />
+            <End Role="Character" EntitySet="Characters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToCharacter1" Association="ThronesTournamentModel.FK_Fight_ToCharacter1">
+            <End Role="Character" EntitySet="Characters" />
+            <End Role="Fight" EntitySet="Fights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToCharacter2" Association="ThronesTournamentModel.FK_Fight_ToCharacter2">
+            <End Role="Character" EntitySet="Characters" />
+            <End Role="Fight" EntitySet="Fights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToCharacterWinner" Association="ThronesTournamentModel.FK_Fight_ToCharacterWinner">
+            <End Role="Character" EntitySet="Characters" />
+            <End Role="Fight" EntitySet="Fights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToTerritory" Association="ThronesTournamentModel.FK_Fight_ToTerritory">
+            <End Role="Territory" EntitySet="Territories" />
+            <End Role="Fight" EntitySet="Fights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToWar" Association="ThronesTournamentModel.FK_Fight_ToWar">
+            <End Role="War" EntitySet="Wars" />
+            <End Role="Fight" EntitySet="Fights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToHouse1" Association="ThronesTournamentModel.FK_Fight_ToHouse1">
+            <End Role="House" EntitySet="Houses" />
+            <End Role="War" EntitySet="Wars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToHouse2" Association="ThronesTournamentModel.FK_Fight_ToHouse2">
+            <End Role="House" EntitySet="Houses" />
+            <End Role="War" EntitySet="Wars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fight_ToHouseWinner" Association="ThronesTournamentModel.FK_Fight_ToHouseWinner">
+            <End Role="House" EntitySet="Houses" />
+            <End Role="War" EntitySet="Wars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Territory_ToHouse" Association="ThronesTournamentModel.FK_Territory_ToHouse">
+            <End Role="House" EntitySet="Houses" />
+            <End Role="Territory" EntitySet="Territories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Territory_ToTerritory_Type" Association="ThronesTournamentModel.FK_Territory_ToTerritory_Type">
+            <End Role="Territory_Type" EntitySet="Territory_Type" />
+            <End Role="Territory" EntitySet="Territories" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bravoury" Type="Int32" Nullable="false" />
+          <Property Name="crazyness" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pv" Type="Int32" Nullable="false" />
+          <Property Name="house_char" Type="Int32" />
+          <NavigationProperty Name="House" Relationship="ThronesTournamentModel.FK__Character__house__07C12930" FromRole="Character" ToRole="House" />
+          <NavigationProperty Name="Fights" Relationship="ThronesTournamentModel.FK_Fight_ToCharacter1" FromRole="Character" ToRole="Fight" />
+          <NavigationProperty Name="Fights1" Relationship="ThronesTournamentModel.FK_Fight_ToCharacter2" FromRole="Character" ToRole="Fight" />
+          <NavigationProperty Name="Fights2" Relationship="ThronesTournamentModel.FK_Fight_ToCharacterWinner" FromRole="Character" ToRole="Fight" />
+        </EntityType>
+        <EntityType Name="Fight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="character1" Type="Int32" Nullable="false" />
+          <Property Name="character2" Type="Int32" Nullable="false" />
+          <Property Name="winner" Type="Int32" />
+          <Property Name="teritory_fight" Type="Int32" Nullable="false" />
+          <Property Name="id_war" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Character" Relationship="ThronesTournamentModel.FK_Fight_ToCharacter1" FromRole="Fight" ToRole="Character" />
+          <NavigationProperty Name="Character3" Relationship="ThronesTournamentModel.FK_Fight_ToCharacter2" FromRole="Fight" ToRole="Character" />
+          <NavigationProperty Name="Character4" Relationship="ThronesTournamentModel.FK_Fight_ToCharacterWinner" FromRole="Fight" ToRole="Character" />
+          <NavigationProperty Name="Territory" Relationship="ThronesTournamentModel.FK_Fight_ToTerritory" FromRole="Fight" ToRole="Territory" />
+          <NavigationProperty Name="War" Relationship="ThronesTournamentModel.FK_Fight_ToWar" FromRole="Fight" ToRole="War" />
+        </EntityType>
+        <EntityType Name="House">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numberOfUnities" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Characters" Relationship="ThronesTournamentModel.FK__Character__house__07C12930" FromRole="House" ToRole="Character" />
+          <NavigationProperty Name="Wars" Relationship="ThronesTournamentModel.FK_Fight_ToHouse1" FromRole="House" ToRole="War" />
+          <NavigationProperty Name="Wars1" Relationship="ThronesTournamentModel.FK_Fight_ToHouse2" FromRole="House" ToRole="War" />
+          <NavigationProperty Name="Wars2" Relationship="ThronesTournamentModel.FK_Fight_ToHouseWinner" FromRole="House" ToRole="War" />
+          <NavigationProperty Name="Territories" Relationship="ThronesTournamentModel.FK_Territory_ToHouse" FromRole="House" ToRole="Territory" />
+        </EntityType>
+        <EntityType Name="Territory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="owner" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fights" Relationship="ThronesTournamentModel.FK_Fight_ToTerritory" FromRole="Territory" ToRole="Fight" />
+          <NavigationProperty Name="House" Relationship="ThronesTournamentModel.FK_Territory_ToHouse" FromRole="Territory" ToRole="House" />
+          <NavigationProperty Name="Territory_Type" Relationship="ThronesTournamentModel.FK_Territory_ToTerritory_Type" FromRole="Territory" ToRole="Territory_Type" />
+        </EntityType>
+        <EntityType Name="Territory_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Territories" Relationship="ThronesTournamentModel.FK_Territory_ToTerritory_Type" FromRole="Territory_Type" ToRole="Territory" />
+        </EntityType>
+        <EntityType Name="War">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="house1" Type="Int32" Nullable="false" />
+          <Property Name="house2" Type="Int32" Nullable="false" />
+          <Property Name="winner" Type="Int32" />
+          <NavigationProperty Name="Fights" Relationship="ThronesTournamentModel.FK_Fight_ToWar" FromRole="War" ToRole="Fight" />
+          <NavigationProperty Name="House" Relationship="ThronesTournamentModel.FK_Fight_ToHouse1" FromRole="War" ToRole="House" />
+          <NavigationProperty Name="House3" Relationship="ThronesTournamentModel.FK_Fight_ToHouse2" FromRole="War" ToRole="House" />
+          <NavigationProperty Name="House4" Relationship="ThronesTournamentModel.FK_Fight_ToHouseWinner" FromRole="War" ToRole="House" />
+        </EntityType>
+        <Association Name="FK__Character__house__07C12930">
+          <End Type="ThronesTournamentModel.House" Role="House" Multiplicity="0..1" />
+          <End Type="ThronesTournamentModel.Character" Role="Character" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Character">
+              <PropertyRef Name="house_char" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToCharacter1">
+          <End Type="ThronesTournamentModel.Character" Role="Character" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.Fight" Role="Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="character1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToCharacter2">
+          <End Type="ThronesTournamentModel.Character" Role="Character" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.Fight" Role="Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="character2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToCharacterWinner">
+          <End Type="ThronesTournamentModel.Character" Role="Character" Multiplicity="0..1" />
+          <End Type="ThronesTournamentModel.Fight" Role="Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="winner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToTerritory">
+          <End Type="ThronesTournamentModel.Territory" Role="Territory" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.Fight" Role="Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Territory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="teritory_fight" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToWar">
+          <End Type="ThronesTournamentModel.War" Role="War" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.Fight" Role="Fight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="War">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fight">
+              <PropertyRef Name="id_war" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToHouse1">
+          <End Type="ThronesTournamentModel.House" Role="House" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.War" Role="War" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="War">
+              <PropertyRef Name="house1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToHouse2">
+          <End Type="ThronesTournamentModel.House" Role="House" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.War" Role="War" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="War">
+              <PropertyRef Name="house2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fight_ToHouseWinner">
+          <End Type="ThronesTournamentModel.House" Role="House" Multiplicity="0..1" />
+          <End Type="ThronesTournamentModel.War" Role="War" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="War">
+              <PropertyRef Name="winner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Territory_ToHouse">
+          <End Type="ThronesTournamentModel.House" Role="House" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.Territory" Role="Territory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="House">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Territory">
+              <PropertyRef Name="owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Territory_ToTerritory_Type">
+          <End Type="ThronesTournamentModel.Territory_Type" Role="Territory_Type" Multiplicity="1" />
+          <End Type="ThronesTournamentModel.Territory" Role="Territory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Territory_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Territory">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ThronesTournamentModelStoreContainer" CdmEntityContainer="ThronesTournamentEntities">
+          <EntitySetMapping Name="Characters">
+            <EntityTypeMapping TypeName="ThronesTournamentModel.Character">
+              <MappingFragment StoreEntitySet="Character">
+                <ScalarProperty Name="house_char" ColumnName="house_char" />
+                <ScalarProperty Name="pv" ColumnName="pv" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="crazyness" ColumnName="crazyness" />
+                <ScalarProperty Name="bravoury" ColumnName="bravoury" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fights">
+            <EntityTypeMapping TypeName="ThronesTournamentModel.Fight">
+              <MappingFragment StoreEntitySet="Fight">
+                <ScalarProperty Name="id_war" ColumnName="id_war" />
+                <ScalarProperty Name="teritory_fight" ColumnName="teritory_fight" />
+                <ScalarProperty Name="winner" ColumnName="winner" />
+                <ScalarProperty Name="character2" ColumnName="character2" />
+                <ScalarProperty Name="character1" ColumnName="character1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Houses">
+            <EntityTypeMapping TypeName="ThronesTournamentModel.House">
+              <MappingFragment StoreEntitySet="House">
+                <ScalarProperty Name="numberOfUnities" ColumnName="numberOfUnities" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Territories">
+            <EntityTypeMapping TypeName="ThronesTournamentModel.Territory">
+              <MappingFragment StoreEntitySet="Territory">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Territory_Type">
+            <EntityTypeMapping TypeName="ThronesTournamentModel.Territory_Type">
+              <MappingFragment StoreEntitySet="Territory_Type">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wars">
+            <EntityTypeMapping TypeName="ThronesTournamentModel.War">
+              <MappingFragment StoreEntitySet="War">
+                <ScalarProperty Name="winner" ColumnName="winner" />
+                <ScalarProperty Name="house2" ColumnName="house2" />
+                <ScalarProperty Name="house1" ColumnName="house1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

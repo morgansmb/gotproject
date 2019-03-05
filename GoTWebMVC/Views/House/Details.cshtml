@@ -1,0 +1,58 @@
+﻿@model GoTWebMVC.Models.HouseModel
+
+@{
+    ViewBag.Title = "Détails";
+}
+
+<h2>Détails</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <p>Nom</p>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            <p>Nombre d'unités</p>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfUnits)
+        </dd>
+    </dl>
+
+    <h3>Liste des personnages appartenant à la maison</h3>
+    <br />
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Prénom
+            </th>
+            <th>
+                Nom
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Housers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Retour à la liste", "List", new { @class = "btn btn-primary btn-large" })
+</p>

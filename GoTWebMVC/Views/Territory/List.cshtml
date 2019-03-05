@@ -1,0 +1,32 @@
+﻿@model IEnumerable<GoTWebMVC.Models.DisplayTerritoryModel>
+
+@{
+    ViewBag.Title = "Territoires";
+}
+
+<h2>Liste des territoires</h2>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Type
+        </th>
+        <th>
+            Maison propriétaire
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner.Name)
+            </td>
+        </tr>
+    }
+
+</table>

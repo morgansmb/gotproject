@@ -1,0 +1,74 @@
+﻿@model GoTWebMVC.Models.CreateFightModel
+
+@{
+    ViewBag.Title = "Combat";
+}
+
+<h2>Creation d'un combat !</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.War.ID)
+
+    <div class="form-horizontal">
+        <h4>Sélection des personnages :</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="AllyCharacter">Personnage de la maison @Html.DisplayFor(modelItem => Model.War.FirstHouse.Name)</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => Model.SelectedAlly, new SelectList(Model.AlliesCharacters, "ID", "FullName"), htmlAttributes: new { @class = "form-control", id = "AllyCharacter" })
+                </div>
+            </div>
+
+            <div class="col-lg-1">
+                <b>VS.</b>
+            </div>
+
+            <div class="col-lg-5">
+                <label for="EnnemyCharacter">Personnage de la maison @Html.DisplayFor(modelItem => Model.War.SecondHouse.Name)</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => Model.SelectedEnnemy, new SelectList(Model.EnnemiesCharacters, "ID", "FullName"), htmlAttributes: new { @class = "form-control", id = "EnnemyCharacter" })
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <h4>Sélection du territoire :</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-xs-5">
+                <p>
+                    Territoire de la maison @Html.DisplayFor(modelItem => Model.War.FirstHouse.Name) : @Html.DisplayFor(modelItem => Model.AlliesTerritory.Type)
+                </p>
+                @Html.RadioButtonFor(model => model.ID_HouseTerritory, Model.War.FirstHouse.ID, new { Checked = "checked" }) @Html.DisplayFor(modelItem => Model.War.FirstHouse.Name)
+            </div>
+            <div class="col-xs-5">
+                <p>
+                    Territoire de la maison @Html.DisplayFor(modelItem => Model.War.SecondHouse.Name) : @Html.DisplayFor(modelItem => Model.EnnemyTerritory.Type)
+                </p>
+                @Html.RadioButtonFor(model => model.ID_HouseTerritory, Model.War.SecondHouse.ID) @Html.DisplayFor(modelItem => Model.War.SecondHouse.Name)
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<GoTWebMVC.Models.HouseModel>
+
+@{
+    ViewBag.Title = "Maisons";
+}
+
+<h2>Liste des maisons disponibles</h2>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Nom
+        </th>
+        <th>
+            Nombre d'unités
+        </th>
+        <th>
+            Voir
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfUnits)
+        </td>
+        <td>
+            @Html.ActionLink("Détails", "Details", new { id = item.ID }, new { @class = "btn btn-primary btn-large" }) 
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,93 @@
+﻿@model GoTWebMVC.Models.WarModel
+
+@{
+    ViewBag.Title = "Guerres";
+}
+
+<div>
+    <h4>@Html.DisplayFor(model => model.FirstHouse.Name) vs. @Html.DisplayFor(model => model.SecondHouse.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Statut :
+        </dt>
+
+        <dd>
+            @if (Model.ID_WinnerHouse == null)
+            {
+                @Html.Raw("En Cours");
+            }
+            else
+            {
+                @Html.Raw("Terminée");
+            }
+        </dd>
+    </dl>
+
+    <br />
+
+    <h3>Liste des combats</h3>
+
+    <br />
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Personnage allié
+            </th>
+            <th>
+                Personnage ennemi
+            </th>
+            <th>
+                Voir
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Fights)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstCharacter.FirstName) @Html.DisplayFor(modelItem => item.FirstCharacter.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondCharacter.FirstName) @Html.DisplayFor(modelItem => item.SecondCharacter.LastName)
+            </td>
+            <td>
+                @Html.ActionLink("Détails", "Details", "Fight",new { id = item.ID }, new { @class = "btn btn-primary btn-large" })
+            </td>
+        </tr>
+        }
+
+    </table>
+
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-lg-5">
+        @if (Model.ID_WinnerHouse == null)
+        {
+            @Html.ActionLink("Ajouter un combat", "Create", "Fight", new { id = Model.ID }, new { @class = "btn btn-primary btn-large" })
+        }
+        else
+        {
+            @:<p><b>Guerre terminée : aucun combat ne peut être ajouté</b></p>
+        }
+    </div>
+
+    <div class="col-lg-5">
+        @if (Model.Fights.Count != 0 && Model.ID_WinnerHouse == null)
+        {
+            @Html.ActionLink("Mettre fin à la guerre", "Update", "War", new { id = Model.ID }, new { @class = "btn btn-primary btn-large" })
+        }
+    </div>
+</div>
+
+
+
+<br />
+
+<p>
+    @Html.ActionLink("Retour à la liste", "List", new { @class = "btn btn-primary btn-large" })
+</p>

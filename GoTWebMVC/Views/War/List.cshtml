@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GoTWebMVC.Models.WarModel>
+
+@{
+    ViewBag.Title = "Guerres";
+}
+
+<br />
+
+<h2>Liste des Guerres</h2>
+
+<br />
+
+@Html.ActionLink("Créer une guerre", "Create", "", new { @class = "btn btn-primary btn-large" })
+
+<br/>
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Opposition
+        </th>
+        <th>
+            Statut
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstHouse.Name) vs. @Html.DisplayFor(modelItem => item.SecondHouse.Name)
+            </td>
+            <td>
+                @if (item.ID_WinnerHouse == null)
+                {
+                    @Html.Raw("En Cours");
+                }
+                else
+                {
+                    @Html.Raw("Terminée");
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Détails", "Details", new { id = item.ID }, new { @class = "btn btn-primary btn-large" })
+            </td>
+        </tr>
+    }
+
+</table>
